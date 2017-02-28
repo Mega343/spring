@@ -71,12 +71,12 @@ public class UserDAOImpl implements UserDAO {
         LOG.traceEntry("Launched find user by email = {}", email);
         Criteria criteria = session.getCurrentSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("email", email));
-        List list = criteria.list();
+        List<User> list = criteria.list();
         if (list.isEmpty()) {
             return null;
         }
         LOG.traceExit("User with email = {} found in database.", email);
-        return (User) list.get(0);
+        return list.get(0);
     }
 
 
