@@ -21,6 +21,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public boolean add(User user) {
         return userDAO.add(user);
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userDAO.searchByEmail(email);
+        User user = userService.searchByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User with email '" + email + "' not found!");
         }

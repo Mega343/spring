@@ -56,7 +56,9 @@ public class LanguageDAOImpl implements LanguageDAO {
     @Override
     public Language searchLanguageByName(String name) {
         LOG.traceEntry("Launched find language by name = {}", name);
-        Language language = (Language) session.getCurrentSession().get(Language.class, name);
+        Language language = (Language) session.getCurrentSession().createQuery("from Language where language = :name")
+                .setParameter("name", name)
+                .uniqueResult();
         LOG.traceExit("Language with name = {} found in database.", name);
         return language;
     }

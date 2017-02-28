@@ -55,7 +55,9 @@ public class ShelfDAOImpl implements ShelfDAO {
     @Override
     public Shelf searchShelfByNumber(Integer shelfNumber) {
         LOG.traceEntry("Launched find shelf by num = {}", shelfNumber);
-        Shelf shelf  = (Shelf) session.getCurrentSession().get(Shelf.class, shelfNumber);
+        Shelf shelf  = (Shelf) session.getCurrentSession().createQuery("from Shelf where shelfNumber = :shelfNumber")
+                .setParameter("shelfNumber", shelfNumber)
+                .uniqueResult();
         if (shelf != null && shelf.getShelfID() == null) {
             throw LOG.throwing(new IllegalArgumentException("Shelf with num = " + shelfNumber + " absent in the database."));
         }

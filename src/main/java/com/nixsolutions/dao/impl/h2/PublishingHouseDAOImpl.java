@@ -55,7 +55,9 @@ public class PublishingHouseDAOImpl implements PublishingHouseDAO {
     @Override
     public PublishingHouse getPublishingHouseByName(String name) {
         LOG.traceEntry("Launched find publishing house by name = {}", name);
-        PublishingHouse ph = (PublishingHouse) session.getCurrentSession().get(PublishingHouse.class, name);
+        PublishingHouse ph = (PublishingHouse) session.getCurrentSession().createQuery("from PublishingHouse where publishingHouseName = :name")
+                .setParameter("name", name)
+                .uniqueResult();
         LOG.traceExit("Publishing house with name = {} found in database.", name);
         return ph;
     }
