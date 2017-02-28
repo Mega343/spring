@@ -1,6 +1,7 @@
 package com.nixsolutions.dao.impl.h2;
 
 import com.nixsolutions.bean.Language;
+import com.nixsolutions.bean.User;
 import com.nixsolutions.dao.LanguageDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,13 +54,11 @@ public class LanguageDAOImpl implements LanguageDAO {
     }
 
     @Override
-    public List<Language> searchLanguageByName(String name) {
+    public Language searchLanguageByName(String name) {
         LOG.traceEntry("Launched find language by name = {}", name);
-        Query query = session.getCurrentSession().createQuery("from Language where language = :language");
-        query.setParameter("language", name);
-        List<Language> languageList = query.list();
+        Language language = (Language) session.getCurrentSession().get(Language.class, name);
         LOG.traceExit("Language with name = {} found in database.", name);
-        return languageList;
+        return language;
     }
 
     @Override

@@ -52,13 +52,11 @@ public class RoleDAOImpl implements RoleDAO {
     }
 
     @Override
-    public List<Role> getRoleByName(String name) {
-        LOG.traceEntry("Launched find role by name = {}", name);
-        Query query = session.getCurrentSession().createQuery("from Role where userRole = :role");
-        query.setParameter("role", name);
-        List<Role> roles = query.list();
-        LOG.traceExit("Role with name = {} found in database.", name);
-        return roles;
+    public Role getRoleByName(String userRole) {
+        LOG.traceEntry("Launched find role by name = {}", userRole);
+        Role role = (Role) session.getCurrentSession().get(Role.class, userRole);
+        LOG.traceExit("Role with name = {} found in database.", userRole);
+        return role;
     }
 
     @Override

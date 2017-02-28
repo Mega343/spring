@@ -14,7 +14,7 @@ public interface LanguageDAO {
 
     public Language getLanguage(Integer id);
 
-    public List<Language> searchLanguageByName(String name);
+    public Language searchLanguageByName(String name);
 
     public List<Language> getAllLanguages();
 }

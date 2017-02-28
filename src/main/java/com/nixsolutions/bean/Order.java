@@ -20,16 +20,16 @@ public class Order implements Serializable {
     private Date expectedReturnDate;
     @Column(name = "actual_return_date")
     private Date actualReturnDate;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "librarian_id", referencedColumnName = "user_id")
     private User librarian;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private Book book;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_type_id", referencedColumnName = "order_type_id")
     private OrderType orderType;
 

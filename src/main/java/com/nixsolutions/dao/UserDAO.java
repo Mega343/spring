@@ -20,4 +20,6 @@ public interface UserDAO {
 
     public List<User> getAllUsers();
 
+    public List<User> getAllUnconfirmedUsers();
+
 }

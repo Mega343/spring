@@ -14,7 +14,7 @@ public interface GenreDAO {
 
     public Genre getGenre(Integer id);
 
-    public List<Genre> searchGenreByName(String name);
+    public Genre searchGenreByName(String name);
 
     public List<Genre> getAllGenres();
 }

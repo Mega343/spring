@@ -30,19 +30,19 @@ public class Book implements Serializable {
     private Integer bookRate;
     @Column(name = "number_of_readings", columnDefinition = "int default 0")
     private Integer numberOfReadings;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id", referencedColumnName = "author_id")
     private Author author;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "publishing_house_id", referencedColumnName = "publishing_house_id")
     private PublishingHouse ph;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
     private Genre genre;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "language_id", referencedColumnName = "language_id")
     private Language language;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "shelf_id", referencedColumnName = "shelf_id")
     private Shelf shelf;
 

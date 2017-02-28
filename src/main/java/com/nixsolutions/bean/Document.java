@@ -13,7 +13,7 @@ public class Document implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
     private Integer documentID;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "document_type_id", referencedColumnName = "document_type_id")
     private DocumentType documentType;
     @NotNull

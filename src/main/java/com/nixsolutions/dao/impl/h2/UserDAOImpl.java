@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,6 +78,21 @@ public class UserDAOImpl implements UserDAO {
         LOG.traceEntry("Launched find all users.");
         Query query = session.getCurrentSession().createQuery("from User");
         List<User> users = query.list();
+        LOG.traceExit(users.size() + " users found in the database.");
+        return users;
+    }
+
+    @Override
+    public List<User> getAllUnconfirmedUsers() {
+        LOG.traceEntry("Launched find all unconfirmed users.");
+
+        Query query = session.getCurrentSession().createQuery("from User where user.address.addressID > 0 " +
+                "and user.document.documentID > 0 and user.role.userRole like '%Guest%'");
+        List<User> users = query.list();
+
+        if (users.isEmpty()) {
+            throw LOG.throwing(new IllegalArgumentException("Table user is empty."));
+        }
         LOG.traceExit(users.size() + " users found in the database.");
         return users;
     }

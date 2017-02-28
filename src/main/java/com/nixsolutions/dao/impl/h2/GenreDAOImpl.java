@@ -53,14 +53,11 @@ public class GenreDAOImpl implements GenreDAO {
     }
 
     @Override
-    public List<Genre> searchGenreByName(String name) {
+    public Genre searchGenreByName(String name) {
         LOG.traceEntry("Launched find genre by name = {}", name);
-        List<Genre> genres;
-        Query query = session.getCurrentSession().createQuery("from Genre where genre = :genre");
-        query.setParameter("genre", name);
-        genres = query.list();
+        Genre genre = (Genre) session.getCurrentSession().get(Genre.class, name);
         LOG.traceExit("Genre with name = {} found in database.", name);
-        return genres;
+        return genre;
     }
 
     @Override

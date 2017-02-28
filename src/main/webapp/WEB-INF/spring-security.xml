@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/index.jsp" access="isAuthenticated()" />
+        <intercept-url pattern="/main" access="isAuthenticated()" />
+        <intercept-url pattern="/address/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/admin/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/delete/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/document/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/update_user/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/awaiting_confirmation" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/books" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/book_delete/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/book_description" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/update_book/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/add_book" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/add_order" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/close/**" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/orders" access="hasAnyAuthority('Librarian', 'Admin')" />
+        <intercept-url pattern="/registration" access="isAuthenticated()" />
+
+
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userService" />
+    </authentication-manager>
+
+    <beans:bean id="userService" class="com.nixsolutions.service.impl.UserServiceImpl" />
+
+</beans:beans>

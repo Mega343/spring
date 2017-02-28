@@ -14,7 +14,7 @@ public interface PublishingHouseDAO {
 
     public PublishingHouse getPublishingHouse(Integer id);
 
-    public List<PublishingHouse> getPublishingHouseByName(String name);
+    public PublishingHouse getPublishingHouseByName(String name);
 
     public List<PublishingHouse> getAllPublishingHouses();
 }

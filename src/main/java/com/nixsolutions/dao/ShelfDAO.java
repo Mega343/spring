@@ -14,5 +14,7 @@ public interface ShelfDAO {
 
     public Shelf getShelf(Integer id);
 
+    public Shelf searchShelfByNumber(Integer shelfNumber);
+
     public List<Shelf> getAllShelves();
 }
