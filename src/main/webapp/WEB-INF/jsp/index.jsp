@@ -24,7 +24,7 @@
 <body>
 
 <div class="container">
-
+    <c:url value="/j_spring_security_check" var="loginUrl" />
     <form class="form-signin" action="${loginUrl}" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
