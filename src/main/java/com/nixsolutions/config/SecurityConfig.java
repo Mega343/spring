@@ -1,7 +1,6 @@
 package com.nixsolutions.config;
 
-import com.nixsolutions.service.UserService;
-import com.nixsolutions.service.impl.UserServiceImpl;
+import com.nixsolutions.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,12 +15,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userService);
+                .userDetailsService(userDetailsService);
     }
 
     @Override

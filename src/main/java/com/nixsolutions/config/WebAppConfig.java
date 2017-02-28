@@ -1,7 +1,6 @@
 package com.nixsolutions.config;
 
-import com.nixsolutions.service.UserService;
-import com.nixsolutions.service.impl.UserServiceImpl;
+import com.nixsolutions.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +21,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public UserService getUserDetailsService(){
-        return new UserServiceImpl();
+    public UserDetailsServiceImpl userDetailsService(){
+        return new UserDetailsServiceImpl();
     }
 
     @Bean
