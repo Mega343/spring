@@ -2,7 +2,6 @@ package com.nixsolutions.config;
 
 import com.nixsolutions.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.nixsolutions")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override

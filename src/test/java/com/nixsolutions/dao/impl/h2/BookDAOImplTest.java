@@ -5,7 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.nixsolutions.bean.*;
-import com.nixsolutions.dao.BookDAO;
+import com.nixsolutions.service.BookService;
 import org.dbunit.dataset.DataSetException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 public class BookDAOImplTest{
 
     @Autowired
-    private BookDAO bookDAO;
+    private BookService bookService;
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "classpath:book/book-add.xml")
@@ -44,7 +44,7 @@ public class BookDAOImplTest{
         Book book = new Book("Polska istoria", 2001, "Some desrpt", 12, 12, author, ph, genre,language, shelf);
 
         //when
-        bookDAO.add(book);
+        bookService.add(book);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class BookDAOImplTest{
         book.setBookID(4L);
 
         //when
-        bookDAO.edit(book);
+        bookService.edit(book);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class BookDAOImplTest{
         Long bookID = 5L;
 
         //when
-        bookDAO.delete(bookID);
+        bookService.delete(bookID);
     }
 
     @Test(expected = RuntimeException.class)
@@ -79,7 +79,7 @@ public class BookDAOImplTest{
         Long bookID = 2L;
 
         //when
-        bookDAO.delete(bookID);
+        bookService.delete(bookID);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class BookDAOImplTest{
         expectedBook.setBookID(bookID);
 
         //when
-        Book actualBook = bookDAO.getBook(bookID);
+        Book actualBook = bookService.getBook(bookID);
 
         //then
         assertEquals(expectedBook.getBookName(), actualBook.getBookName());
@@ -115,7 +115,7 @@ public class BookDAOImplTest{
         expectedBook.setBookID(4L);
 
         //when
-        List<Book> actualBooksList = bookDAO.searchByBookName(bookName);
+        List<Book> actualBooksList = bookService.searchByBookName(bookName);
 
         //then
         assertEquals(expectedBooksList.toString(), actualBooksList.toString());
@@ -128,7 +128,7 @@ public class BookDAOImplTest{
         List<Book> expectedBooksList = prepareBook();
 
         //when
-        List<Book> actualBooksList = bookDAO.getAllBooks();
+        List<Book> actualBooksList = bookService.getAllBooks();
 
         //then
         assertEquals(expectedBooksList.toString(), actualBooksList.toString());
