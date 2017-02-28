@@ -1,7 +1,6 @@
 package com.nixsolutions.config;
 
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -29,8 +28,7 @@ public class DataBaseConfig {
         return dataSource;
     }
 
-    @Autowired
-    @Bean(name = "sessionFactory")
+    @Bean
     public LocalSessionFactoryBean sessionFactory() throws SQLException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
@@ -39,8 +37,7 @@ public class DataBaseConfig {
         return sessionFactory;
     }
 
-    @Autowired
-    @Bean(name = "transactionManager")
+    @Bean
     public HibernateTransactionManager transactionManager(
             SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(
