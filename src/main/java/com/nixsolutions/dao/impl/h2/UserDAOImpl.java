@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 
 @Repository
@@ -67,9 +69,14 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User searchByEmail(String email) {
         LOG.traceEntry("Launched find user by email = {}", email);
-        User user = (User) session.getCurrentSession().get(User.class, email);
+        Criteria criteria = session.getCurrentSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("email", email));
+        List list = criteria.list();
+        if (list.isEmpty()) {
+            return null;
+        }
         LOG.traceExit("User with email = {} found in database.", email);
-        return user;
+        return (User) list.get(0);
     }
 
 
