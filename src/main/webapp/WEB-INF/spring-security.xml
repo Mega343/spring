@@ -29,7 +29,7 @@
         <form-login
             login-page="/index"
             default-target-url="/main"
-            authentication-failure-url="/index"
+            authentication-failure-url="/"
             username-parameter="email"
             password-parameter="password" />
             <logout logout-success-url="/index" />
