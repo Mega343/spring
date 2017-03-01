@@ -74,6 +74,6 @@ INSERT INTO book (book_name, author_id, publishing_house_id, genre_id, year_of_i
 INSERT INTO booking (user_id, librarian_id, book_id,  expected_return_date,  order_type_id) VALUES (4, 2, 2,  '2016-12-31',  1);
 INSERT INTO booking (user_id, librarian_id, book_id,  expected_return_date,  order_type_id) VALUES (5, 3, 1,  '2017-01-31',  3);
 INSERT INTO booking (user_id, librarian_id, book_id,  expected_return_date,  order_type_id) VALUES (6, 1, 3,  '2017-02-11',  2);
-INSERT INTO booking (user_id, librarian_id, book_id,  expected_return_date,  order_type_id) VALUES (7, 5, 3,  '2016-02-11',  3);
+INSERT INTO booking (user_id, librarian_id, book_id,  expected_return_date,  order_type_id) VALUES (5, 5, 3,  '2016-02-11',  3);
 
 

@@ -8,9 +8,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AddressController {
@@ -20,12 +20,12 @@ public class AddressController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/address/{user_id}", method = RequestMethod.GET)
-    public String viewAddress(@PathVariable("user_id") Long id, Model model) {
+    @RequestMapping(value = "/address", method = RequestMethod.GET)
+    public String viewAddress(@RequestParam("user_id") String userID, Model model) {
         Address address;
         User user;
         try{
-            user = userService.getUser(id);
+            user = userService.getUser(Long.parseLong(userID));
             address = user.getAddress();
             model.addAttribute("address", address);
             model.addAttribute("user", user);

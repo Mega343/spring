@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@attribute name="title" %>
 <%@attribute name="tableName" %>
 <%@attribute name="error" %>
@@ -60,7 +61,9 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">${tableName}</h1>
             <div class="text-center">
-                <p style="color: red">${error}</p>
+                <c:if test="${not empty error}">
+                <div class="error" style="color: red">${error}</div>
+                </c:if>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">

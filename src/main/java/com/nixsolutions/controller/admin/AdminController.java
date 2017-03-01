@@ -7,10 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -24,36 +21,38 @@ public class AdminController {
     private UserService userService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(Model model) {
+    public String adminPage(Model model, @RequestParam(value = "error", required = false) String error) {
         try {
             List<User> users = userService.getAllUsers();
             model.addAttribute("users", users);
+            if (error != null) {
+                model.addAttribute("error", error);
+            }
         } catch (Exception e) {
             LOG.catching(e);
-            throw LOG.throwing(new RuntimeException(e));
+            model.addAttribute("error", e.getMessage());
+            return "admin";
         }
         return "admin";
     }
 
-    @RequestMapping(value = "/delete/{user_id}")
-    public String deleteUser(@PathVariable("user_id") Long userID, Model model) {
+    @RequestMapping(value = "/delete")
+    public String deleteUser(@RequestParam("user_id") String userID, Model model) {
         try {
-            userService.delete(userID);
-            return "admin";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", "Can not delete user who has orders.");
-            return "admin";
+            userService.delete(Long.parseLong(userID));
+            return "redirect:/admin";
         } catch (Exception e) {
             LOG.catching(e);
-            throw LOG.throwing(new RuntimeException(e));
+            model.addAttribute("error", "Can not delete user who has orders.");
+            return "redirect:/admin";
         }
     }
 
 
-    @RequestMapping(value = "/update_user/{user_id}", method = RequestMethod.GET)
-    public ModelAndView viewUserUpdateForm(@PathVariable("user_id") Long id) {
+    @RequestMapping(value = "/update_user", method = RequestMethod.GET)
+    public ModelAndView viewUserUpdateForm(@RequestParam("user_id") String userID) {
         try{
-            User user = userService.getUser(id);
+            User user = userService.getUser(Long.parseLong(userID));
             return new ModelAndView("updateUser", "user", user);
         } catch (Exception e) {
             LOG.catching(e);
@@ -61,14 +60,15 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/update_user", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute("user")User user) {
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute("user")User user, Model model) {
         try {
             userService.edit(user);
-            return "/admin";
+            return "admin";
         } catch (Exception e) {
             LOG.catching(e);
-            throw LOG.throwing(new RuntimeException(e));
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/admin";
         }
     }
 

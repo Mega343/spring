@@ -9,9 +9,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DocumentController {
@@ -21,13 +21,13 @@ public class DocumentController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/document/{user_id}", method = RequestMethod.GET)
-    public String viewDocument(@PathVariable("user_id") Long id, Model model) {
+    @RequestMapping(value = "/document", method = RequestMethod.GET)
+    public String viewDocument(@RequestParam("user_id") String userID, Model model) {
         Document document;
         DocumentType documentType;
         User user;
         try{
-            user = userService.getUser(id);
+            user = userService.getUser(Long.parseLong(userID));
             document = user.getDocument();
             documentType = document.getDocumentType();
             model.addAttribute("document", document);

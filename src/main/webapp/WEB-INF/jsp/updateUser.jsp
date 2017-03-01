@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -6,7 +7,7 @@
     <jsp:attribute name="error">${error}</jsp:attribute>
 <jsp:attribute name="table">
 <div class="col-xs-12 col-sm-12 col-md-12">
-    <form class="form-signin" action="update_user" method="post">
+    <form class="form-signin" action="update" method="post">
 
         <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-4">
@@ -21,10 +22,10 @@
                     <fieldset class="form-group">
                         <label>User Role</label>
                         <select class="form-control" name="user_role" id="user_role">
-                            <option ${role.userRole.equals("Guest")?"selected":""}>Guest</option>
-                            <option ${role.userRole.equals("Reader")?"selected":""}>Reader</option>
-                            <option ${role.userRole.equals("Librarian")?"selected":""}>Librarian</option>
-                            <option ${role.userRole.equals("Admin")?"selected":""}>Admin</option>
+                            <option ${user.role.userRole.equals("Guest")?"selected":""}>Guest</option>
+                            <option ${user.role.userRole.equals("Reader")?"selected":""}>Reader</option>
+                            <option ${user.role.userRole.equals("Librarian")?"selected":""}>Librarian</option>
+                            <option ${user.role.userRole.equals("Admin")?"selected":""}>Admin</option>
                         </select>
                     </fieldset>
                 </div>
@@ -86,7 +87,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">City</label>
-                    <input class="form-control input-md" type="text" name="city_name" value="${address.cityName}"
+                    <input class="form-control input-md" type="text" name="city_name" value="${user.address.cityName}"
                            id="city_name">
                 </div>
             </div>
@@ -94,7 +95,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Street</label>
                     <input class="form-control input-md" type="text" name="street_name"
-                           value="${address.streetName}" id="street_name">
+                           value="${user.address.streetName}" id="street_name">
                 </div>
             </div>
         </div>
@@ -104,14 +105,14 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label">House Number</label>
                     <input class="form-control input-md" type="text" name="house_number"
-                           value="${address.houseNumber}" id="house_number">
+                           value="${user.address.houseNumber}" id="house_number">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Flat Number</label>
                     <input class="form-control input-md" type="text" name="flat_number"
-                           value="${address.flatNumber}" id="flat_number">
+                           value="${user.address.flatNumber}" id="flat_number">
                 </div>
             </div>
         </div>
@@ -120,19 +121,19 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <input type="hidden" class="form-control input-md" name="address_id"
-                           value="${address.addressID}" id="address_id">
+                           value="${user.address.addressID}" id="address_id">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <input class="form-control input-md" type="hidden" name="document_id"
-                           value="${document.documentID}" id="document_id">
+                           value="${user.document.documentID}" id="document_id">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md4">
                 <div class="form-group row">
                     <input class="form-control input-md" type="hidden" name="document_type_id"
-                           value="${document.documentTypeID}" id="document_type_id">
+                           value="${user.document.documentTypeID}" id="document_type_id">
                 </div>
             </div>
         </div>
@@ -143,8 +144,11 @@
                     <fieldset class="form-group">
                         <label>Document Type</label>
                         <select class="form-control" name="document_type" id="document_type">
-                            <option ${document_type.documentType.equals("Passport")?"selected":""}>Passport</option>
-                            <option ${document_type.documentType.equals("Driver licence")?"selected":""}>Driver
+                            <option ${user.document.documentType.documentType.equals("Passport")?"selected":""}>
+                                Passport
+                            </option>
+                            <option ${user.document.documentType.documentType.equals("Driver licence")?"selected":""}>
+                                Driver
                                 licence
                             </option>
                         </select>
@@ -154,7 +158,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Series</label>
-                    <input class="form-control input-md" type="text" name="series" value="${document.series}"
+                    <input class="form-control input-md" type="text" name="series" value="${user.document.series}"
                            id="series">
                 </div>
             </div>
@@ -164,14 +168,14 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Number</label>
-                    <input class="form-control input-md" type="text" name="number" value="${document.number}"
+                    <input class="form-control input-md" type="text" name="number" value="${user.document.number}"
                            id="number">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Issued By</label>
-                    <input class="form-control input-md" type="text" name="issued_by" value="${document.issuedBy}"
+                    <input class="form-control input-md" type="text" name="issued_by" value="${user.document.issuedBy}"
                            id="issued_by">
                 </div>
             </div>
@@ -182,7 +186,7 @@
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Data Of Issue</label>
                     <input class="form-control input-md" type="text" name="date_of_issue"
-                           value="${document.dateOfIssue}" id="date_of_issue">
+                           value="${user.document.dateOfIssue}" id="date_of_issue">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
