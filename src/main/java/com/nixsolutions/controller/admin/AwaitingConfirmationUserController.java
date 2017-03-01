@@ -29,7 +29,7 @@ public class AwaitingConfirmationUserController {
     public String viewUsersAwaitingConfirmation(Model model) {
         try {
             List<User> users = userService.getAllUnconfirmedUsers();
-            model.addAttribute("user", users);
+            model.addAttribute("users", users);
             return "awaitingConfirmation";
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", "There are no users awaiting confirmation.");

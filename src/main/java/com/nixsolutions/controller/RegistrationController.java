@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RegistrationController {
@@ -18,6 +19,11 @@ public class RegistrationController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/add_user", method = RequestMethod.GET)
+    public ModelAndView viewAddFrom() {
+        return new ModelAndView("registration", "user", new User());
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("user") User user, Model model) {

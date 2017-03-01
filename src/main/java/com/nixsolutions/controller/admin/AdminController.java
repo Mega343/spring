@@ -72,8 +72,4 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/add_user", method = RequestMethod.GET)
-    public String doGet() {
-        return "/registration";
-    }
 }

@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/j_spring_security_check")
-                .failureUrl("/")
+                .failureUrl("/login?error")
                 .usernameParameter("j_email")
                 .passwordParameter("j_password")
                 .defaultSuccessUrl("/main")
@@ -46,6 +46,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/index?logout")
                 .invalidateHttpSession(true);
+
+        http.authorizeRequests()
+                .antMatchers("/admin/").access("hasRole('ROLE_ADMIN')")
+              //  .antMatchers("/").access("isAuthenticated()")
+                .antMatchers("/main").access("permitAll")
+                .antMatchers("/address/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/delete/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/document/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/update_user/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/awaiting_confirmation/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/books").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/book_delete/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/book_description").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/update_book/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/add_book").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/add_order").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/close/**").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/orders").access("hasAnyAuthority('Librarian', 'Admin')")
+                .antMatchers("/registration").access("hasAnyAuthority('Librarian', 'Admin')")
+                .and().formLogin();
 
     }
 

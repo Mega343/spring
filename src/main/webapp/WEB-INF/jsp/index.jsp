@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,10 +39,16 @@
         <button class="btn btn-lg btn-success btn-block" type="submit">Registration</button>
     </form>
 </div>
+
 <div class="text-center">
-    <p style="color: red">${error}</p>
+    <c:if test="${not empty error}">
+    <div class="error" style="color: red">${error}</div>
+    </c:if>
+    <c:if test="${not empty msg}">
+        <div class="msg" style="color: red">${msg}</div>
+    </c:if>
     <p>Admin: ivanov@mail.ru / qwerty</p>
-    <p>User: ivanova@mail.ru / qwerty123</p>
+    <p>User: sidorov@mail.ru / qwerty12345</p>
 </div>
 
 <!-- Bootstrap core JavaScript================================================== -->

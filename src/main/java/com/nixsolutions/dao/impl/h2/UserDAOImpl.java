@@ -93,8 +93,8 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getAllUnconfirmedUsers() {
         LOG.traceEntry("Launched find all unconfirmed users.");
 
-        Query query = session.getCurrentSession().createQuery("from User where user.address.addressID > 0 " +
-                "and user.document.documentID > 0 and user.role.userRole like '%Guest%'");
+        Query query = session.getCurrentSession().createQuery("from User where address.addressID > 0 " +
+                "and document.documentID > 0 and role.userRole like '%Guest%'");
         List<User> users = query.list();
 
         if (users.isEmpty()) {
