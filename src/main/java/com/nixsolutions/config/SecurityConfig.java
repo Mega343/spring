@@ -28,9 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
-                .and();
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/admin**").hasRole("Admin");
 
         http.formLogin()
                 .loginPage("/")
@@ -47,9 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/index?logout")
                 .invalidateHttpSession(true);
 
-        http.authorizeRequests()
-        .antMatchers("/admin/").access("hasRole('Admin')")
-              //  .antMatchers("/").access("isAuthenticated()")
+                //  .antMatchers("/").access("isAuthenticated()")
 //                .antMatchers("/main").access("permitAll")
 //                .antMatchers("/address/**").access("hasAnyAuthority('Librarian', 'Admin')")
 //                .antMatchers("/delete/**").access("hasAnyAuthority('Librarian', 'Admin')")
@@ -65,7 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/close/**").access("hasAnyAuthority('Librarian', 'Admin')")
 //                .antMatchers("/orders").access("hasAnyAuthority('Librarian', 'Admin')")
 //                .antMatchers("/registration").access("hasAnyAuthority('Librarian', 'Admin')")
-                .and().formLogin();
 
     }
 
