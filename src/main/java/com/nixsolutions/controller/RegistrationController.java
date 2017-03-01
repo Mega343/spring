@@ -37,7 +37,8 @@ public class RegistrationController {
             user.setRole(role);
             try {
                 userService.add(user);
-                return "redirect:/login";
+                model.addAttribute("msg", "You have successfully registered.");
+                return "index";
             } catch (Exception e) {
                 model.addAttribute("error", "Error. User with that email or phone number already registered!");
                 return "registration";

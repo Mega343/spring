@@ -10,10 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "error", required = false) String error) {
+    public ModelAndView index(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "msg", required = false) String msg) {
         ModelAndView model = new ModelAndView();
         if (error != null) {
             model.addObject("error", "Invalid username or password!");
+        }
+        if (msg != null) {
+            model.addObject("msg", msg);
         }
         model.setViewName("index");
         return model;

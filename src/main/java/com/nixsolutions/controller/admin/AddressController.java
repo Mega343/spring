@@ -32,7 +32,7 @@ public class AddressController {
             return "address";
         } catch (Exception e){
             LOG.catching(e);
-            model.addAttribute(e.getMessage());
+            model.addAttribute("error", e.getMessage());
             return "redirect:/admin";
         }
     }

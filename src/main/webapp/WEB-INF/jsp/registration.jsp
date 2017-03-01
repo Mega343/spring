@@ -1,6 +1,6 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
-
-<html lang="en">+
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Website CSS style -->
@@ -17,48 +17,47 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Sign up. All fields are required.</h3>
-                    <p style="color: red">${error}</p>
-                </div>
-                <div class="panel-body">
-                    <form role="form" action="registration" method="post">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="first_name" id="first_name" class="form-control input-sm"
-                                           placeholder="First Name">
-                                </div>
+                    <div class="text-center">
+                        <c:if test="${not empty error}">
+                            <div class="error" style="color: red">${error}</div>
+                        </c:if>
+                    </div>
+                    <div class="panel-body">
+                        <form:form action="registration" modelAttribute="user">
+                            <div class="form-group">
+                                <label for="firstNameInput">First Name </label>
+                                <form:input path="firstName" id="firstNameInput"/>
+                                <br/>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="last_name" id="last_name" class="form-control input-sm"
-                                           placeholder="Last Name">
-                                </div>
+                            <div class="form-group">
+                                <label for="lastNameInput">Last Name </label>
+                                <form:input path="lastName" id="lastNameInput"/>
+                                <br/>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" id="email" class="form-control input-sm"
-                                   placeholder="Email Address">
-                        </div>
-                        <div class="form-group">
-                            <input type="phone_number" name="phone_number" id="phone_number"
-                                   class="form-control input-sm" placeholder="Phone number">
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control input-sm"
-                                           placeholder="Password">
-                                </div>
+                            <div class="form-group">
+                                <label for="emailInput">Email </label>
+                                <form:input path="email" id="emailInput"/>
+                                <br/>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="password_confirmation" id="password_confirmation"
-                                           class="form-control input-sm" placeholder="Confirm Password">
-                                </div>
+                            <div class="form-group">
+                                <label for="phoneNumberInput">Phone Number </label>
+                                <form:input path="phoneNumber" id="phoneNumberInput"/>
+                                <br/>
                             </div>
-                        </div>
-                        <input type="submit" value="Register" class="btn btn-info btn-block">
-                    </form>
+                            <div class="form-group">
+                                <label for="passwordInput">Password </label>
+                                <form:input path="password" id="passwordInput"/>
+                                <br/>
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordConfirmInput">Confirm Pass</label>
+                                <input name="confirmPassword" id="passwordConfirmInput"/>
+                                <br/>
+                            </div>
+                            <input type="submit" value="Register" class="btn btn-info btn-block">
+                        </form:form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

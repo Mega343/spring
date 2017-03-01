@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone_number"})})
+@Table(name = "user")
 public class User implements Serializable {
 
     @Id
@@ -19,13 +19,13 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
     @NotNull
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @NotNull
     @Column(name = "password")
     private String password;
     @NotNull
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
     @Column(name = "karma", columnDefinition = "int default 0")
     private Integer karma;

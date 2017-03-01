@@ -36,7 +36,7 @@ public class DocumentController {
             return "document";
         } catch (Exception e){
             LOG.catching(e);
-            model.addAttribute(e.getMessage());
+            model.addAttribute("error", e.getMessage());
             return "redirect:/admin";
         }
     }

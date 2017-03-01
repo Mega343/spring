@@ -45,7 +45,7 @@
     <div class="error" style="color: red">${error}</div>
     </c:if>
     <c:if test="${not empty msg}">
-        <div class="msg" style="color: red">${msg}</div>
+        <div class="msg" style="color: #496bff">${msg}</div>
     </c:if>
     <p>Admin: ivanov@mail.ru / qwerty</p>
     <p>User: sidorov@mail.ru / qwerty12345</p>

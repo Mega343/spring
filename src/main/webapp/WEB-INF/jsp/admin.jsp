@@ -33,25 +33,25 @@
                             <td><c:out value="${user.karma}"/></td>
                             <td><c:out value="${user.role.userRole}"/></td>
                             <td>
-                                <form action="document">
+                                <form action="document" method="get">
                                     <input type="hidden" name="user_id" value="${user.userID}"/>
                                     <button type="submit" class="btn btn-xs btn-info">Document</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="address">
+                                <form action="address" method="get">
                                     <input type="hidden" name="user_id" value="${user.userID}"/>
                                     <button type="submit" class="btn btn-xs btn-info">Address</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="update_user">
+                                <form action="update_user" method="get">
                                     <input type="hidden" name="user_id" value="${user.userID}"/>
                                     <button type="submit" class="btn btn-xs btn-warning">Update</button>
                                 </form>
                             </td>
                             <td>
-                                <form action="delete">
+                                <form action="delete" method="get">
                                     <input type="hidden" name="user_id" value="${user.userID}"/>
                                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                                 </form>
