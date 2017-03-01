@@ -2,18 +2,17 @@ package com.nixsolutions.controller.order;
 
 import com.nixsolutions.bean.Book;
 import com.nixsolutions.bean.Order;
+import com.nixsolutions.bean.User;
 import com.nixsolutions.service.BookService;
 import com.nixsolutions.service.OrderService;
 import com.nixsolutions.service.OrderTypeService;
 import com.nixsolutions.service.UserService;
 import com.nixsolutions.util.OrderReturnDateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
@@ -35,6 +34,9 @@ public class OrderController {
 
     @RequestMapping(value = "/add_order", method = RequestMethod.GET)
     public String addOrderForm(Model model) {
+        org.springframework.security.core.userdetails.User loggedUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.searchByEmail(loggedUser.getUsername());
+        model.addAttribute("librarian", user);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("books", bookService.getAllBooks());
         model.addAttribute("orderTypes", orderTypeService.getAllOrderTypes());
@@ -55,9 +57,9 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/close/{order_id}", method = RequestMethod.GET)
-    public String closeOrder(@PathVariable("order_id") Long orderID) {
-        Order order = orderService.getOrder(orderID);
+    @RequestMapping(value = "/close", method = RequestMethod.GET)
+    public String closeOrder(@RequestParam("order_id") String orderID) {
+        Order order = orderService.getOrder(Long.parseLong(orderID));
         order.setActualReturnDate(new Date(System.currentTimeMillis()));
         orderService.edit(order);
         book = bookService.getBook(order.getBook().getBookID());

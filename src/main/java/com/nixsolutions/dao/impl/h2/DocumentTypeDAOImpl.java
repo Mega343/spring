@@ -52,11 +52,13 @@ public class DocumentTypeDAOImpl implements DocumentTypeDAO {
     }
 
     @Override
-    public List<DocumentType> findDocumentTypeByName(String name) {
+    public DocumentType findDocumentTypeByName(String name) {
         LOG.traceEntry("Launched find document type by name = {}", name);
-        Query query = session.getCurrentSession().createQuery("from DocumentType where documentType = :name");
-        query.setParameter("name", name);
-        List<DocumentType> documentType = query.list();
+
+        DocumentType documentType = (DocumentType) session.getCurrentSession()
+                .createQuery("from DocumentType where documentType = :name")
+                .setParameter("name", name)
+                .uniqueResult();
         LOG.traceExit("Document type with name = {} found in database.", name);
         return documentType;
     }

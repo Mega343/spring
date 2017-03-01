@@ -15,7 +15,7 @@ public interface DocumentTypeDAO {
 
     public DocumentType getDocumentType(Integer id);
 
-    public List<DocumentType> findDocumentTypeByName(String name);
+    public DocumentType findDocumentTypeByName(String name);
 
     public List<DocumentType> getAllDocumentTypes();
 }

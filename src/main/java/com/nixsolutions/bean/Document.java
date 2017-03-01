@@ -32,7 +32,8 @@ public class Document implements Serializable {
     public Document() {
     }
 
-    public Document(DocumentType documentType, String series, Integer number, String issuedBy, Date dateOfIssue) {
+    public Document(Integer documentID, DocumentType documentType, String series, Integer number, String issuedBy, Date dateOfIssue) {
+        this.documentID = documentID;
         this.documentType = documentType;
         this.series = series;
         this.number = number;

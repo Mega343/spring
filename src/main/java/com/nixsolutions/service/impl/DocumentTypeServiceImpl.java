@@ -38,7 +38,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
     }
 
     @Override
-    public List<DocumentType> findDocumentTypeByName(String name) {
+    public DocumentType findDocumentTypeByName(String name) {
         return documentTypeDAO.findDocumentTypeByName(name);
     }
 

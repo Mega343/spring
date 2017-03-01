@@ -13,19 +13,19 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">User ID</label>
-                    <input class="form-control input-md" type="text" name="user_id" value="${user.userID}"
-                           id="user_id" readonly>
+                    <input class="form-control input-md" type="text" name="userID" value="${user.userID}"
+                           id="userID" readonly>
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <fieldset class="form-group">
                         <label>User Role</label>
-                        <select class="form-control" name="user_role" id="user_role">
-                            <option ${user.role.userRole.equals("Guest")?"selected":""}>Guest</option>
-                            <option ${user.role.userRole.equals("Reader")?"selected":""}>Reader</option>
-                            <option ${user.role.userRole.equals("Librarian")?"selected":""}>Librarian</option>
-                            <option ${user.role.userRole.equals("Admin")?"selected":""}>Admin</option>
+                        <select class="form-control" name="userRole" id="userRole">
+                            <option ${user.userRole.equals("Guest")?"selected":""}>Guest</option>
+                            <option ${user.userRole.equals("Reader")?"selected":""}>Reader</option>
+                            <option ${user.userRole.equals("Librarian")?"selected":""}>Librarian</option>
+                            <option ${user.userRole.equals("Admin")?"selected":""}>Admin</option>
                         </select>
                     </fieldset>
                 </div>
@@ -36,15 +36,15 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">First Name</label>
-                    <input class="form-control input-md" type="text" name="first_name" value="${user.firstName}"
-                           id="first_name">
+                    <input class="form-control input-md" type="text" name="firstName" value="${user.firstName}"
+                           id="firstName">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Last Name</label>
-                    <input class="form-control input-md" type="text" name="last_name" value="${user.lastName}"
-                           id="last_name">
+                    <input class="form-control input-md" type="text" name="lastName" value="${user.lastName}"
+                           id="lastName">
                 </div>
             </div>
         </div>
@@ -60,8 +60,8 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Phone</label>
-                    <input class="form-control input-md" type="text" name="phone_number"
-                           value="${user.phoneNumber}" id="phone_number">
+                    <input class="form-control input-md" type="text" name="phoneNumber"
+                           value="${user.phoneNumber}" id="phoneNumber">
                 </div>
             </div>
         </div>
@@ -87,15 +87,15 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">City</label>
-                    <input class="form-control input-md" type="text" name="city_name" value="${user.address.cityName}"
-                           id="city_name">
+                    <input class="form-control input-md" type="text" name="cityName" value="${user.cityName}"
+                           id="cityName">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Street</label>
-                    <input class="form-control input-md" type="text" name="street_name"
-                           value="${user.address.streetName}" id="street_name">
+                    <input class="form-control input-md" type="text" name="streetName"
+                           value="${user.streetName}" id="streetName">
                 </div>
             </div>
         </div>
@@ -104,15 +104,15 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">House Number</label>
-                    <input class="form-control input-md" type="text" name="house_number"
-                           value="${user.address.houseNumber}" id="house_number">
+                    <input class="form-control input-md" type="text" name="houseNumber"
+                           value="${user.houseNumber}" id="houseNumber">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Flat Number</label>
-                    <input class="form-control input-md" type="text" name="flat_number"
-                           value="${user.address.flatNumber}" id="flat_number">
+                    <input class="form-control input-md" type="text" name="flatNumber"
+                           value="${user.flatNumber}" id="flatNumber">
                 </div>
             </div>
         </div>
@@ -120,20 +120,14 @@
         <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
-                    <input type="hidden" class="form-control input-md" name="address_id"
-                           value="${user.address.addressID}" id="address_id">
+                    <input type="hidden" class="form-control input-md" name="addressID"
+                           value="${user.addressID}" id="addressID">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
-                    <input class="form-control input-md" type="hidden" name="document_id"
-                           value="${user.document.documentID}" id="document_id">
-                </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md4">
-                <div class="form-group row">
-                    <input class="form-control input-md" type="hidden" name="document_type_id"
-                           value="${user.document.documentTypeID}" id="document_type_id">
+                    <input class="form-control input-md" type="hidden" name="documentID"
+                           value="${user.documentID}" id="documentID">
                 </div>
             </div>
         </div>
@@ -143,11 +137,11 @@
                 <div class="form-group row">
                     <fieldset class="form-group">
                         <label>Document Type</label>
-                        <select class="form-control" name="document_type" id="document_type">
-                            <option ${user.document.documentType.documentType.equals("Passport")?"selected":""}>
+                        <select class="form-control" name="documentType" id="documentType">
+                            <option ${user.documentType.equals("Passport")?"selected":""}>
                                 Passport
                             </option>
-                            <option ${user.document.documentType.documentType.equals("Driver licence")?"selected":""}>
+                            <option ${user.documentType.equals("Driver licence")?"selected":""}>
                                 Driver
                                 licence
                             </option>
@@ -158,7 +152,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Series</label>
-                    <input class="form-control input-md" type="text" name="series" value="${user.document.series}"
+                    <input class="form-control input-md" type="text" name="series" value="${user.series}"
                            id="series">
                 </div>
             </div>
@@ -168,15 +162,15 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Number</label>
-                    <input class="form-control input-md" type="text" name="number" value="${user.document.number}"
+                    <input class="form-control input-md" type="text" name="number" value="${user.number}"
                            id="number">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Issued By</label>
-                    <input class="form-control input-md" type="text" name="issued_by" value="${user.document.issuedBy}"
-                           id="issued_by">
+                    <input class="form-control input-md" type="text" name="issuedBy" value="${user.issuedBy}"
+                           id="issuedBy">
                 </div>
             </div>
         </div>
@@ -185,8 +179,8 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="form-group row">
                     <label class="col-2 col-form-label">Data Of Issue</label>
-                    <input class="form-control input-md" type="text" name="date_of_issue"
-                           value="${user.document.dateOfIssue}" id="date_of_issue">
+                    <input class="form-control input-md" type="text" name="dateOfIssue"
+                           value="${user.dateOfIssue}" id="dateOfIssue">
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">

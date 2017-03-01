@@ -1,13 +1,23 @@
 package com.nixsolutions.controller.admin;
 
+import com.nixsolutions.bean.Document;
+import com.nixsolutions.bean.DocumentType;
+import com.nixsolutions.bean.Role;
 import com.nixsolutions.bean.User;
+import com.nixsolutions.dto.UserDTO;
+import com.nixsolutions.service.DocumentTypeService;
+import com.nixsolutions.service.RoleService;
 import com.nixsolutions.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,6 +29,10 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private DocumentTypeService documentTypeService;
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, @RequestParam(value = "error", required = false) String error) {
@@ -53,7 +67,8 @@ public class AdminController {
     public ModelAndView viewUserUpdateForm(@RequestParam("user_id") String userID) {
         try{
             User user = userService.getUser(Long.parseLong(userID));
-            return new ModelAndView("updateUser", "user", user);
+            UserDTO userDTO = UserDTO.getUserDTO(user);
+            return new ModelAndView("updateUser", "user", userDTO);
         } catch (Exception e) {
             LOG.catching(e);
             throw LOG.throwing(new RuntimeException(e));
@@ -61,14 +76,43 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute("user")User user, Model model) {
-        try {
-            userService.edit(user);
-            return "admin";
-        } catch (Exception e) {
-            LOG.catching(e);
-            model.addAttribute("error", e.getMessage());
-            return "redirect:/admin";
+    public String updateUser(@ModelAttribute("user")UserDTO userDTO, Model model) {
+        org.springframework.security.core.userdetails.User loggedUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!isAdminTryChangeRoleHimself(loggedUser.getUsername(), userDTO)) {
+            try {
+                User user = UserDTO.getUser(userDTO);
+                Role role = roleService.getRoleByName(userDTO.getUserRole());
+                DocumentType documentType = documentTypeService.findDocumentTypeByName(userDTO.getDocumentType());
+                user.setRole(role);
+                Document document = user.getDocument();
+                document.setDocumentType(documentType);
+                user.setDocument(document);
+                userService.edit(user);
+                return "redirect:/admin";
+            } catch (Exception e) {
+                LOG.catching(e);
+                model.addAttribute("error", e.getMessage());
+                return "redirect:/admin";
+            }
+        } else {
+           model.addAttribute("error", "Error. Cannot change admin role.");
+           model.addAttribute("user", userDTO);
+            return "updateUser";
+        }
+    }
+
+    private boolean isAdminTryChangeRoleHimself(String email, UserDTO updatedUser) {
+        User admin = userService.searchByEmail(email);
+        if(admin.getUserID().equals(updatedUser.getUserID())) {
+            String previousRole = admin.getRole().getUserRole();
+            String updatedRole = updatedUser.getUserRole();
+            if (previousRole.equals("Admin") && !updatedRole.equals("Admin")) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
